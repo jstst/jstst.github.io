@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+  <title>1111</title>
+  <script src="../asserts/jq3.1.1min.js" charset="utf-8"></script>
+  <script src="../asserts/vue230min.js" charset="utf-8"></script>
+  <style >
+    html{ font-size: 33px; }
+    #body .txtWrap{
+      position: relative;
+      width: 100%;
+    }
+    #body .curWord{
+      font-size: 1rem;
+      font-family: 'kaiti',sans-serif;
+      vertical-align: middle;
+    }
+    #body .cursor{
+      vertical-align: middle;
+      display: inline-block;
+      height: 0.8rem;
+      border: 2px solid rgba(0, 0, 0, 0.5);
+    }
+    #body .cursor1{ opacity: 0; }
+    #body .imgWrap{ text-align: center; }
+    
+    .img{
+      position: absolute;
+      top : -120%;
+      z-index: -1;
+      display: none;
+    }
+    .show{
+      display: inline-block ;
+    }
+    @keyframes img2{
+      0%  {
+        top : -100%;
+        left: 10vw;
+        opacity: 1;
+        transform:rotate(10deg);
+      }
+      20%  {
+        top : -30%;
+        left: 12vw;
+        opacity: 0.8;
+        transform:rotate(20deg);
+      }
+      40%  {
+        top : 11%;
+        left: 15vw;
+        opacity: 0.8;
+        transform:rotate(30deg);
+      }
+      70%  {
+        top : 60%;
+        left: 20vw;
+        opacity: 0.3;
+        transform:rotate(50deg);
+      }
+      100% {
+        top: 100%;
+        left: 13vw;
+        opacity: 0;
+        transform:rotate(80deg);
+      }
+    }
+    @keyframes img3{
+      0%  {
+        top : -100%;
+        left: 20vw;
+        opacity: 1;
+        transform:rotate(10deg);
+      }
+      18%  {
+        top : -50%;
+        left: 20vw;
+        opacity: 0.8;
+        transform:rotate(20deg);
+      }
+      44%  {
+        top : -5%;
+        left: 12vw;
+        opacity: 0.8;
+        transform:rotate(10deg);
+      }
+      70%  {
+        top : 20%;
+        left: 33vw;
+        opacity: 0.3;
+        transform:rotate(30deg);
+      }
+      100% {
+        top: 100%;
+        left: 55vw;
+        opacity: 0;
+        transform:rotate(10deg);
+      }
+    }
+    @keyframes img4{
+      0%  {
+        top : -100%;
+        left: 60vw;
+        opacity: 1;
+        transform:rotate(10deg);
+      }
+      14%  {
+        top : -20%;
+        left: 50vw;
+        opacity: 0.8;
+        transform:rotate(1deg);
+      }
+      34%  {
+        top : 20%;
+        left: 50vw;
+        opacity: 0.8;
+        transform:rotate(1deg);
+      }
+      70%  {
+        top : 70%;
+        left: 60vw;
+        opacity: 0.3;
+        transform:rotate(10deg);
+      }
+      100% {
+        top: 100%;
+        left: 50vw;
+        opacity: 0;
+        transform:rotate(1deg);
+      }
+    }
+    @keyframes img5{
+      0%  {
+        top : -100%;
+        left: 80vw;
+        opacity: 1;
+        transform:rotate(0deg);
+      }
+      10%  {
+        top : -10%;
+        left: 70vw;
+        opacity: 0.8;
+        transform:rotate(10deg);
+      }
+      50%  {
+        top :30%;
+        left: 70vw;
+        opacity: 0.8;
+        transform:rotate(0deg);
+      }
+      70%  {
+        top : 60%;
+        left: 60vw;
+        opacity: 0.3;
+        transform:rotate(-15deg);
+      }
+      100% {
+        top: 100%;
+        left: 70vw;
+        opacity: 0;
+        transform:rotate(-30deg);
+      }
+    }
+    .img2{
+      width: 10%;
+      position: absolute;
+      animation:img2 7s linear 1s infinite;
+    }
+    .img3{
+      width: 10%;
+      position: absolute;
+      animation:img3 11s linear 3s infinite;
+    }
+    .img4{
+      width: 10%;
+      position: absolute;
+      animation:img4 10s linear 0s infinite;
+    }
+    .img5{
+      width: 15%;
+      position: absolute;
+      animation:img5 13s linear 5s infinite;
+    }
+    #body {}
+  </style>
+</head>
+<body>
+  <div id="body">
+    <div class="txtWrap">
+      <span class="curWord" v-html="curWord"></span>
+      <span class="cursor" :class="{cursor1:isShow}"></span>
+      <img src="./asserts/2.jpg" class="img img2" :class="{show:imgShow}">
+      <img src="./asserts/3.jpg" class="img img3" :class="{show:imgShow}">
+      <img src="./asserts/4.jpg" class="img img4" :class="{show:imgShow}">
+      <img src="./asserts/5.jpg" class="img img5" :class="{show:imgShow}">
+    </div>
+    <div class="imgWrap">
+      <img :src="imgSrc" >
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  new Vue({
+    el : '#body',
+    data : {
+      words : '  微风轻吹浮动相思叶，@  细雨斜打搅乱相思情，@  鹊桥相会遇见梦中人，@  七夕节情话诉衷肠，@ 天长地久会有时，@ 此情绵绵无绝期，@ 遥望星空两缠绵，@ 用爱续写新神话，@ 祝亲爱的七夕节快乐。',
+      curWord : '',
+      isShow : true,
+      imgShow : false,
+      imgSrc : '',
+    },
+    mounted : function (){
+      var that = this;
+      
+      setTimeout(function(){
+        that.imgShow = true;
+      },500);
+      
+      var time = 333;
+      var num = 0;
+      var curWord = '';
+      var setIntervalId = setInterval(function(){
+        num++;
+        curWord = that.curWord;
+        that.curWord = that.words.slice(0,num).replace(/\s/g,'').replace(/@/g,'<br/>');
+        if (that.curWord == that.words.replace(/\s/g,'').replace(/@/g,'<br/>')) {
+          clearInterval(setIntervalId);
+          that.imgSrc = 'http://img.liuxue86.com/2016/0701/20160701105904225.gif'
+        }
+        console.log(1);
+      },time);
+      var num1 = 0;
+      var setIntervalId1 = setInterval(function(){
+        if (curWord == that.curWord) {
+          num1++;
+          that.isShow = num1%2;
+        }
+        else {
+          that.isShow = false;
+        }
+        if (that.curWord == that.words.replace(/\s/g,'').replace(/@/g,'<br/>')) {
+          clearInterval(setIntervalId1);
+          that.isShow = true;
+        }
+        console.log(2);
+      },time/2);
+    },
+  });
+</script>
+</html>
